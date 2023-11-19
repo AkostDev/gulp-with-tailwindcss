@@ -1,8 +1,8 @@
 const config = {
-  tailwindjs: "./tailwind.config.js",
+  tailwindjs: './tailwind.config.js',
   port: 9050,
   purgecss: {
-    content: ["src/**/*.{html,js,php}"],
+    content: ['src/**/*.{html,js,php}'],
     safelist: {
       standard: [/^pre/, /^code/],
       greedy: [/token.*/],
@@ -22,13 +22,13 @@ const plugins = {
 };
 
 // base folder paths
-const basePaths = ["src", "dist", "build"];
+const basePaths = ['src', 'dist', 'build'];
 
 // folder assets paths
-const folders = ["css", "js", "img", "fonts", "third-party"];
+const folders = ['css', 'js', 'img', 'fonts', 'third-party'];
 
 const paths = {
-  root: "./",
+  root: './',
 };
 
 basePaths.forEach((base) => {
