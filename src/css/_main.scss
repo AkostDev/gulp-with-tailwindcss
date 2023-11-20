@@ -1,16 +1,37 @@
 html {
+  // Smooth scrolling, e.g. by anchor links
   @apply scroll-smooth;
 }
 body {
-  @apply font-sans w-full h-screen bg-white flex flex-col;
+  @apply font-sans w-full h-screen flex flex-col;
   -webkit-tap-highlight-color: transparent;
 
+  // No scroll for body
   &.fix {
     @apply h-screen fixed overflow-y-hidden;
   }
 }
 
+
 // For AlpineJS x-show
 [x-cloak] {
   @apply hidden #{!important};
+}
+
+
+main {
+  // Disabling horizontal scrolling (if the content will climb outside the main)
+  @apply overflow-x-hidden;
+}
+
+
+// Full-width container without breaking the main container
+.full-width {
+  @apply w-screen -mx-half-screen relative inset-x-2/4;
+}
+
+
+.swiper {
+  // By default value is overflow: hidden
+  @apply overflow-visible;
 }
