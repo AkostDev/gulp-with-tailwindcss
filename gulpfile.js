@@ -1,8 +1,7 @@
 /**
  *   Gulp with TailwindCSS - An CSS Utility framework build setup with SCSS
- *   Author : Manjunath G
- *   URL : manjumjn.com | lazymozek.com
- *   Twitter : twitter.com/manju_mjn
+ *   Author : Alex Kostylev
+ *   URL : akost.dev
  **/
 
 /*
@@ -21,11 +20,7 @@ const sass = require('gulp-sass')(require('sass')); //For Compiling SASS files
 const postcss = require('gulp-postcss'); //For Compiling tailwind utilities with tailwind config
 const concat = require('gulp-concat'); //For Concatinating js,css files
 const uglify = require('gulp-terser'); //To Minify JS files
-const imagemin = require('gulp-imagemin'); //To Optimize Images
-const mozjpeg = require('imagemin-mozjpeg'); // imagemin plugin
-const pngquant = require('imagemin-pngquant'); // imagemin plugin
-const purgecss = require('gulp-purgecss'); // Remove Unused CSS from Styles
-const logSymbols = require('log-symbols'); //For Symbolic Console logs :) :P
+const logSymbols = import('log-symbols'); //For Symbolic Console logs :) :P
 const includePartials = require('gulp-file-include'); //For supporting partials if required
 
 //Load Previews on Browser on dev
@@ -71,12 +66,6 @@ function devScripts() {
   ])
     .pipe(concat({ path: 'scripts.js' }))
     .pipe(dest(options.paths.dist.js));
-}
-
-function devImages() {
-  return src(`${options.paths.src.img}/**/*`).pipe(
-    dest(options.paths.dist.img)
-  );
 }
 
 function devImages() {
@@ -146,21 +135,6 @@ function prodStyles() {
         cssnano(),
       ])
     )
-    // .pipe(
-    //   purgecss({
-    //     ...options.config.purgecss,
-    //     defaultExtractor: (content) => {
-    //       // without arbitray selectors
-    //       // const v2Regex = /[\w-:./]+(?<!:)/g;
-    //       // with arbitray selectors
-    //       const v3Regex = /[(\([&*\])|\w)-:./]+(?<!:)/g;
-    //       const broadMatches = content.match(v3Regex) || [];
-    //       const innerMatches =
-    //         content.match(/[^<>"'`\s.()]*[^<>"'`\s.():]/g) || [];
-    //       return broadMatches.concat(innerMatches);
-    //     },
-    //   })
-    // )
     .pipe(dest(options.paths.build.css));
 }
 
@@ -175,19 +149,7 @@ function prodScripts() {
 }
 
 function prodImages() {
-  const pngQuality = Array.isArray(options.config.imagemin.png)
-    ? options.config.imagemin.png
-    : [0.7, 0.7];
-  const jpgQuality = Number.isInteger(options.config.imagemin.jpeg)
-    ? options.config.imagemin.jpeg
-    : 70;
-  const plugins = [
-    pngquant({ quality: pngQuality }),
-    mozjpeg({ quality: jpgQuality }),
-  ];
-
   return src(options.paths.src.img + '/**/*')
-    .pipe(imagemin([...plugins]))
     .pipe(dest(options.paths.build.img));
 }
 
